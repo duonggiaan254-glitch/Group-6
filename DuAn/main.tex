@@ -1,0 +1,99 @@
+\documentclass[12pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T5]{fontenc}
+\usepackage[vietnamese]{babel}
+\usepackage[a4paper,left=3cm,right=2cm,top=2.5cm,bottom=2.5cm]{geometry}
+\usepackage{setspace}
+\usepackage{graphicx}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{booktabs}
+\usepackage{float}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{amsmath}
+\usepackage{listings}
+\usepackage{xcolor}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    urlcolor=blue,
+    citecolor=black
+}
+
+\onehalfspacing
+\setlength{\parindent}{1.25cm}
+\setlength{\parskip}{0.2em}
+
+\lstset{
+    basicstyle=\ttfamily\small,
+    breaklines=true,
+    frame=single,
+    columns=fullflexible
+}
+
+\begin{document}
+
+\begin{titlepage}
+    \centering
+    \vspace{0.5cm}
+    {\Large \textbf{TRƯỜNG ĐẠI HỌC GIAO THÔNG VẬN TẢI THÀNH PHỐ HỒ CHÍ MINH}\par}
+    \vspace{2cm}
+    {\Large \textbf{MÔN THIẾT KẾ CƠ SỞ DỮ LIỆU}\par}
+    \vspace{1.5cm}
+
+    {\Huge \textbf{BÁO CÁO DỰ ÁN}\par}
+    \vspace{1cm}
+
+    {\Large NỀN TẢNG IoT CÓ UAV HỖ TRỢ PHỤC VỤ\\
+    GIÁM SÁT VÀ THU THẬP DỮ LIỆU CẢM BIẾN NÔNG TRẠI\par}
+
+    \vspace{0.7cm}
+    {\large UAV-Assisted IoT Platform for Farm Monitoring and Sensor Data Collection\par}
+
+    \vfill
+
+    \begin{tabular}{ll}
+        Mã đề tài: & GFA26SE110\\
+        Nhóm: & Nhóm 01\\
+        Thành viên: & Thành viên 1\\
+                   & Thành viên 2\\
+                   & Thành viên 3\\
+                   & Thành viên 4\\
+                   & Thành viên 5
+    \end{tabular}
+
+    \vfill
+    {\large TP. Hồ Chí Minh, 2026\par}
+\end{titlepage}
+
+\tableofcontents
+\newpage
+
+\section{Giới thiệu đề tài}
+\input{chapters/01_gioi_thieu}
+
+\section{Phân tích yêu cầu}
+\input{chapters/02_phan_tich_yeu_cau}
+
+\section{Phân tích và mô hình hóa hệ thống}
+\input{chapters/03_mo_hinh_he_thong}
+
+\section{Thiết kế cơ sở dữ liệu}
+\input{chapters/04_thiet_ke_csdL}
+
+\section{Thiết kế dữ liệu và các chức năng}
+\input{chapters/05_thiet_ke_chuc_nang}
+
+\section{Kiểm thử và đánh giá}
+\input{chapters/06_kiem_thu}
+
+\section{Kết luận và hướng phát triển}
+\input{chapters/07_ket_luan}
+
+\section{Phân công công việc}
+\input{chapters/08_phan_cong}
+
+\end{document}

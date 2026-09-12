@@ -1,0 +1,39 @@
+
+\subsection{Mô hình tổng quan}
+Kiến trúc logic của hệ thống có thể mô tả theo chuỗi:
+
+\begin{center}
+Sensor Node $\rightarrow$ UAV Gateway $\rightarrow$ Central System $\rightarrow$ Database
+\end{center}
+
+UAV gateway thu thập dữ liệu từ các sensor node. Nếu Internet không khả dụng, dữ liệu được lưu cục bộ. Khi kết nối trở lại, dữ liệu được đồng bộ lên hệ thống trung tâm.
+
+\subsection{Activity: thu thập dữ liệu}
+Quy trình cơ bản:
+\begin{enumerate}
+    \item UAV đến khu vực cần thu thập.
+    \item Gateway phát hiện sensor đã đăng ký.
+    \item Gateway xác thực thiết bị.
+    \item Gateway yêu cầu dữ liệu.
+    \item Sensor gửi dữ liệu.
+    \item Hệ thống kiểm tra dữ liệu.
+    \item Nếu dữ liệu hợp lệ, dữ liệu được lưu.
+    \item Nếu không có Internet, dữ liệu được lưu offline và chờ đồng bộ.
+    \item Khi có kết nối, dữ liệu được đồng bộ lên hệ thống trung tâm.
+\end{enumerate}
+
+\subsection{Sequence: đồng bộ dữ liệu}
+Có thể mô tả các đối tượng tham gia gồm Sensor Node, UAV Gateway, Backend và Database. Gateway nhận dữ liệu từ sensor, kiểm tra trạng thái kết nối và gửi dữ liệu lên Backend. Backend tiếp tục kiểm tra và lưu dữ liệu vào Database.
+
+\subsection{Các biểu đồ UML cần bổ sung}
+Theo yêu cầu dự án, tài liệu nên có:
+\begin{itemize}
+    \item Use Case Diagram.
+    \item Class Diagram.
+    \item Sequence Diagram.
+    \item Activity Diagram.
+    \item Component Diagram.
+    \item Deployment Diagram.
+\end{itemize}
+
+Các hình UML có thể được đặt vào thư mục \texttt{images/} và chèn bằng lệnh \texttt{\textbackslash includegraphics} khi nhóm hoàn thiện sơ đồ.

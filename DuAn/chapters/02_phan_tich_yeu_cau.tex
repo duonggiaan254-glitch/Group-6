@@ -1,0 +1,46 @@
+
+\subsection{Tác nhân}
+Các tác nhân chính được xác định từ yêu cầu của đề tài gồm:
+\begin{itemize}
+    \item Farm Administrator: quản trị viên nông trại, quản lý tài khoản, farm, zone, sensor, mission và theo dõi dữ liệu.
+    \item UAV and Device Operator: người vận hành UAV và thiết bị, thực hiện hoặc theo dõi nhiệm vụ thu thập dữ liệu.
+    \item Sensor Collection Engine: thành phần chịu trách nhiệm tiếp nhận, kiểm tra và lưu trữ dữ liệu cảm biến.
+\end{itemize}
+
+\subsection{Yêu cầu chức năng}
+Một số nhóm chức năng chính:
+\begin{enumerate}
+    \item Đăng nhập và đăng xuất.
+    \item Quản lý tài khoản người dùng.
+    \item Quản lý farm và zone.
+    \item Quản lý sensor node và loại cảm biến.
+    \item Quản lý UAV và gateway.
+    \item Tạo và quản lý mission.
+    \item Thiết lập route và waypoint.
+    \item Thu thập dữ liệu cảm biến.
+    \item Kiểm tra dữ liệu thiếu, trùng hoặc không hợp lệ.
+    \item Lưu dữ liệu offline và đồng bộ khi có kết nối.
+    \item Kiểm tra dữ liệu theo ngưỡng.
+    \item Quản lý cảnh báo và thông báo.
+    \item Sinh báo cáo dữ liệu cảm biến, cảnh báo và mission.
+\end{enumerate}
+
+\subsection{Yêu cầu phi chức năng}
+Hệ thống cần hướng tới độ sẵn sàng tối thiểu 99\% trong điều kiện vận hành bình thường. Dữ liệu cảm biến phải được lưu trữ an toàn, sao lưu định kỳ và chỉ cho phép người dùng đã xác thực truy cập.
+
+Các thao tác web thông thường nên phản hồi trong khoảng ba giây. Dữ liệu mới đồng bộ nên xuất hiện trên dashboard trong khoảng mười giây. UAV gateway cần hỗ trợ lưu offline, tự động thử lại và ngăn dữ liệu trùng lặp.
+
+\subsection{Use Case dự kiến}
+Các Use Case chính có thể được nhóm thành:
+\begin{itemize}
+    \item Authentication.
+    \item User Management.
+    \item Farm and Zone Management.
+    \item Sensor Management.
+    \item UAV and Gateway Management.
+    \item Mission Management.
+    \item Sensor Data Collection.
+    \item Data Validation and Synchronization.
+    \item Threshold and Alert Management.
+    \item Reporting.
+\end{itemize}
