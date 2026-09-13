@@ -1,0 +1,4 @@
+.env
+__pycache__/
+*.pyc
+gateway_buffer.jsonl
