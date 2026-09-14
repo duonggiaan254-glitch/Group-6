@@ -17,18 +17,27 @@ Một số nhóm chức năng chính:
     \item Quản lý UAV và gateway.
     \item Tạo và quản lý mission.
     \item Thiết lập route và waypoint.
+    \item Theo dõi trạng thái mission.
     \item Thu thập dữ liệu cảm biến.
     \item Kiểm tra dữ liệu thiếu, trùng hoặc không hợp lệ.
     \item Lưu dữ liệu offline và đồng bộ khi có kết nối.
+    \item Hiển thị dashboard tổng quan.
+    \item Xem vị trí sensor trên bản đồ.
+    \item Xem dữ liệu hiện tại, dữ liệu lịch sử và so sánh giữa các zone.
     \item Kiểm tra dữ liệu theo ngưỡng.
     \item Quản lý cảnh báo và thông báo.
     \item Sinh báo cáo dữ liệu cảm biến, cảnh báo và mission.
+    \item Xem kết quả mission và các điểm thu thập thất bại.
 \end{enumerate}
 
 \subsection{Yêu cầu phi chức năng}
 Hệ thống cần hướng tới độ sẵn sàng tối thiểu 99\% trong điều kiện vận hành bình thường. Dữ liệu cảm biến phải được lưu trữ an toàn, sao lưu định kỳ và chỉ cho phép người dùng đã xác thực truy cập.
 
 Các thao tác web thông thường nên phản hồi trong khoảng ba giây. Dữ liệu mới đồng bộ nên xuất hiện trên dashboard trong khoảng mười giây. UAV gateway cần hỗ trợ lưu offline, tự động thử lại và ngăn dữ liệu trùng lặp.
+
+Hệ thống cần có khả năng mở rộng để bổ sung thêm farm, zone, sensor node, UAV, gateway và các loại cảm biến mới mà không cần thay đổi lớn kiến trúc hiện có. Giao diện người dùng phải tương thích với các trình duyệt phổ biến như Chrome, Edge và Firefox, đồng thời hiển thị rõ ràng bản đồ, biểu đồ, trạng thái thiết bị và các cảnh báo.
+
+Hệ thống hỗ trợ theo dõi pin UAV, waypoint và trạng thái mission khi dữ liệu telemetry khả dụng.
 
 \subsection{Use Case dự kiến}
 Các Use Case chính có thể được nhóm thành:
@@ -44,3 +53,6 @@ Các Use Case chính có thể được nhóm thành:
     \item Threshold and Alert Management.
     \item Reporting.
 \end{itemize}
+
+\subsection{ERD}
+
