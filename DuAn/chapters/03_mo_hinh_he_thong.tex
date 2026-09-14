@@ -1,39 +1,83 @@
+\subsection{USE CASE}
 
-\subsection{Mô hình tổng quan}
-Kiến trúc logic của hệ thống có thể mô tả theo chuỗi:
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{images/USE CASE.png}
+    \caption{Use Case Diagram}
+\end{figure}
 
-\begin{center}
-Sensor Node $\rightarrow$ UAV Gateway $\rightarrow$ Central System $\rightarrow$ Database
-\end{center}
+\subsection{Mô tả các Actors}
+\begin{longtable}{p{0.12\textwidth}p{0.42\textwidth}p{0.30\textwidth}}
+\toprule
+\textbf{STT} & \textbf{Actor} & \textbf{Mô tả vai trò} \\
+\midrule
+1 & Farm Administrator & Quản lý toàn bộ hệ thống, người dùng, farm, zone, cảnh báo, báo cáo và giám sát dữ liệu cảm biến. \\
+2 & UAV and Device Operator & Quản lý toàn bộ hệ thống, người dùng, farm, zone, cảnh báo, báo cáo và giám sát dữ liệu cảm biến. \\
+3 & Sensor Collection Engine & Thành phần hệ thống chịu trách nhiệm phát hiện thiết bị, thu thập, kiểm tra, lưu trữ và đồng bộ dữ liệu cảm biến. \\
+\bottomrule
+\end{longtable}
 
-UAV gateway thu thập dữ liệu từ các sensor node. Nếu Internet không khả dụng, dữ liệu được lưu cục bộ. Khi kết nối trở lại, dữ liệu được đồng bộ lên hệ thống trung tâm.
+\subsection{Mô tả các USE CASE}
+\begin{longtable}{p{0.12\textwidth}p{0.42\textwidth}p{0.30\textwidth}}
+\toprule
+\textbf{STT} & \textbf{Use Case} & \textbf{Mô tả chức năng} \\
+\midrule
+1 & Login / Logout & Cho phép người dùng đăng nhập và đăng xuất hệ thống. \\
+2 & Manage Users & Quản lý tài khoản người dùng và phân quyền truy cập.  \\
+3 & Manage Farms & Thêm, sửa, xóa thông tin farm. \\
+4 & Manage Zones & Quản lý các khu vực (zone) trong farm. \\
+5 & View Dashboard & Xem tổng quan hệ thống, thiết bị, cảnh báo và mission. \\
+6 & View Sensor Map & Hiển thị vị trí sensor trên bản đồ. \\
+7 & View Sensor Data & Xem dữ liệu hiện tại và lịch sử của cảm biến. \\
+8 & Compare Zone Data & So sánh dữ liệu giữa các zone. \\
+9 & Manage Alerts & Xem, xử lý và đóng cảnh báo. \\
+10 & Configure Thresholds & Thiết lập ngưỡng cảnh báo cho cảm biến. \\
+11 & Receive Notifications & Nhận thông báo qua web và email. \\
+12 & Generate Reports & Sinh báo cáo dữ liệu, cảnh báo và mission. \\
+13 & Manage Sensor Nodes & Quản lý sensor node và gán vào zone. \\
+14 & Manage UAVs and Gateways & Quản lý UAV và gateway. \\
+15 & Create Mission & Tạo nhiệm vụ thu thập dữ liệu. \\
+16 & Select Farm & Chọn farm cho mission. \\
+17 & Select Sensor Nodes & Chọn sensor node cần thu thập dữ liệu. \\
+18 & Define Waypoints & Thiết lập waypoint và lộ trình UAV. \\
+19 & Monitor Mission & Theo dõi trạng thái mission. \\
+20 & Update Mission Status & Cập nhật trạng thái và ghi chú mission. \\
+21 & Review Mission Results & Xem kết quả mission và các lỗi phát sinh. \\
+22 & Discover and Authenticate Sensor Nodes & Phát hiện và xác thực sensor node. \\
+23 & Collect and Validate Sensor Data & Thu thập và kiểm tra dữ liệu cảm biến. \\
+24 & Store Offline & Lưu dữ liệu khi mất kết nối Internet. \\
+25 & Synchronize Data & Đồng bộ dữ liệu lên hệ thống trung tâm. \\
+\bottomrule
+\end{longtable}
 
-\subsection{Activity: thu thập dữ liệu}
-Quy trình cơ bản:
-\begin{enumerate}
-    \item UAV đến khu vực cần thu thập.
-    \item Gateway phát hiện sensor đã đăng ký.
-    \item Gateway xác thực thiết bị.
-    \item Gateway yêu cầu dữ liệu.
-    \item Sensor gửi dữ liệu.
-    \item Hệ thống kiểm tra dữ liệu.
-    \item Nếu dữ liệu hợp lệ, dữ liệu được lưu.
-    \item Nếu không có Internet, dữ liệu được lưu offline và chờ đồng bộ.
-    \item Khi có kết nối, dữ liệu được đồng bộ lên hệ thống trung tâm.
-\end{enumerate}
+\subsection{ACTIVITY DIAGRAM}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\textwidth]{images/Activity Diagram - Login _ Logout.drawio.png}
+    \caption{Activity Diagram Login/Logout}
+\end{figure}
 
-\subsection{Sequence: đồng bộ dữ liệu}
-Có thể mô tả các đối tượng tham gia gồm Sensor Node, UAV Gateway, Backend và Database. Gateway nhận dữ liệu từ sensor, kiểm tra trạng thái kết nối và gửi dữ liệu lên Backend. Backend tiếp tục kiểm tra và lưu dữ liệu vào Database.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\textwidth]{images/Activity Diagram Create Mission.drawio.png}
+    \caption{Activity Diagram Create Mission}
+\end{figure}
 
-\subsection{Các biểu đồ UML cần bổ sung}
-Theo yêu cầu dự án, tài liệu nên có:
-\begin{itemize}
-    \item Use Case Diagram.
-    \item Class Diagram.
-    \item Sequence Diagram.
-    \item Activity Diagram.
-    \item Component Diagram.
-    \item Deployment Diagram.
-\end{itemize}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{images/Activity Diagram Collect and Validate Sensor Data.drawio.png }
+    \caption{Activity Diagram Collect and Validate Sensor Data}
+\end{figure}
 
-Các hình UML có thể được đặt vào thư mục \texttt{images/} và chèn bằng lệnh \texttt{\textbackslash includegraphics} khi nhóm hoàn thiện sơ đồ.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{images/Activity Diagram Store Offline and Synchronize Data.drawio.png }
+    \caption{Activity Diagram Store Offline and Synchronize Data}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\textwidth]{images/Activity Diagram Monitor Mission.drawio.png }
+    \caption{Activity Diagram Monitor Mission}
+\end{figure}
+
