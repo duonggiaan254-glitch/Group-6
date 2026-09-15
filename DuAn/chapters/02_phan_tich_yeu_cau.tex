@@ -39,20 +39,174 @@ Hệ thống cần có khả năng mở rộng để bổ sung thêm farm, zone,
 
 Hệ thống hỗ trợ theo dõi pin UAV, waypoint và trạng thái mission khi dữ liệu telemetry khả dụng.
 
-\subsection{Use Case dự kiến}
-Các Use Case chính có thể được nhóm thành:
-\begin{itemize}
-    \item Authentication.
-    \item User Management.
-    \item Farm and Zone Management.
-    \item Sensor Management.
-    \item UAV and Gateway Management.
-    \item Mission Management.
-    \item Sensor Data Collection.
-    \item Data Validation and Synchronization.
-    \item Threshold and Alert Management.
-    \item Reporting.
-\end{itemize}
+\subsection{Xác định các thực thể (Entity) và các thuộc tính}
+Gồm có 18 thực thể:
+\begin{longtable}{p{0.25\textwidth}p{0.65\textwidth}}
+\toprule
+\textbf{Thực thể} & \textbf{Thuộc tính} \\
+\midrule
+ROLE & \makecell[l]{RoleID \\ RoleName} \\
+\bottomrule
+\end{longtable}
+
+    
+
+\begin{longtable}{p{0.25\textwidth}p{0.65\textwidth}}
+\toprule
+\textbf{Thực thể} & \textbf{Thuộc tính} \\
+\midrule
+USER & \makecell[l]{UserID \\ RoleID \\ Username \\ Email \\ PasswordHash \\ FullName \\ Status \\ CreatedAt \\ LastLoginAt} \\
+\bottomrule
+\end{longtable}
+
+
+\begin{longtable}{p{0.25\textwidth}p{0.65\textwidth}}
+\toprule
+\textbf{Thực thể} & \textbf{Thuộc tính} \\
+\midrule
+FARM & \makecell[l]{FarmID \\FarmName \\Description \\Address \\Latitude \\Longitude \\Status \\CreatedAt} \\
+\bottomrule
+\end{longtable}
+
+\begin{longtable}{p{0.25\textwidth}p{0.65\textwidth}}
+\toprule
+\textbf{Thực thể} & \textbf{Thuộc tính} \\
+\midrule
+ZONE & \makecell[l]{ZoneID \\FarmID \\ZoneName \\Description \\Latitude \\Longitude \\Status} \\
+\bottomrule
+\end{longtable}
+
+
+\begin{longtable}{p{0.25\textwidth}p{0.65\textwidth}}
+\toprule
+\textbf{Thực thể} & \textbf{Thuộc tính} \\
+\midrule
+SENSOR TYPE & \makecell[l]{SensorTypeID \\TypeName \\Unit \\Description} \\
+\bottomrule
+\end{longtable}
+
+
+\begin{longtable}{p{0.25\textwidth}p{0.65\textwidth}}
+\toprule
+\textbf{Thực thể} & \textbf{Thuộc tính} \\
+\midrule
+SENSOR NODE & \makecell[l]{SensorID \\ZoneID \\SensorCode \\SerialNumber \\Latitude \\Longitude \\BatteryLevel \\Status \\RegisteredAt \\LastSeenAt} \\
+\bottomrule
+\end{longtable}
+
+
+\begin{longtable}{p{0.25\textwidth}p{0.65\textwidth}}
+\toprule
+\textbf{Thực thể} & \textbf{Thuộc tính} \\
+\midrule
+SENSOR DATA & \makecell[l]{DataID \\SensorID \\SensorTypeID \\MeasuredValue \\MeasuredAt \\CollectionSource \\SyncStatus \\CollectedAt} \\
+\bottomrule
+\end{longtable}
+
+
+\begin{longtable}{p{0.25\textwidth}p{0.65\textwidth}}
+\toprule
+\textbf{Thực thể} & \textbf{Thuộc tính} \\
+\midrule
+UAV & \makecell[l]{UAVID \\UAVCode \\SerialNumber \\Model \\BatteryLevel \\Status \\Latitude \\Longitude \\CreatedAt} \\
+\bottomrule
+\end{longtable}
+
+
+\begin{longtable}{p{0.25\textwidth}p{0.65\textwidth}}
+\toprule
+\textbf{Thực thể} & \textbf{Thuộc tính} \\
+\midrule
+GATEWAY & \makecell[l]{GatewayID \\UAVID \\GatewayCode \\SerialNumber \\ConnectivityStatus \\BatteryLevel \\StorageStatus \\LastSyncAt} \\
+\bottomrule
+\end{longtable}
+
+
+\begin{longtable}{p{0.25\textwidth}p{0.65\textwidth}}
+\toprule
+\textbf{Thực thể} & \textbf{Thuộc tính} \\
+\midrule
+MISSION & \makecell[l]{MissionID \\FarmID \\UAVID \\GatewayID \\CreatedBy \\MissionName \\Status \\StartTime \\EndTime \\CreatedAt} \\
+\bottomrule
+\end{longtable}
+
+
+\begin{longtable}{p{0.25\textwidth}p{0.65\textwidth}}
+\toprule
+\textbf{Thực thể} & \textbf{Thuộc tính} \\
+\midrule
+MISSION SENSOR & \makecell[l]{MissionID \\SensorID} \\
+\bottomrule
+\end{longtable}
+
+
+\begin{longtable}{p{0.25\textwidth}p{0.65\textwidth}}
+\toprule
+\textbf{Thực thể} & \textbf{Thuộc tính} \\
+\midrule
+WAYPOINT & \makecell[l]{WaypointID \\MissionID \\SequenceNo \\Latitude \\Longitude \\Altitude \\Status \\ReachedAt} \\
+\bottomrule
+\end{longtable}
+
+
+\begin{longtable}{p{0.25\textwidth}p{0.65\textwidth}}
+\toprule
+\textbf{Thực thể} & \textbf{Thuộc tính} \\
+\midrule 
+MISSION COLLECTION & \makecell[l]{CollectionID \\MissionID \\SensorID \\CollectedAt \\Latitude \\Longitude \\Status \\ErrorReason \\RetryCount} \\
+\bottomrule
+\end{longtable}
+
+
+\begin{longtable}{p{0.25\textwidth}p{0.65\textwidth}}
+\toprule
+\textbf{Thực thể} & \textbf{Thuộc tính} \\
+\midrule
+THRESHOLD & \makecell[l]{ThresholdID \\SensorTypeID \\ZoneID \\MinValue \\MaxValue \\TimeoutMinutes \\LowBatteryLevel \\IsActive} \\
+\bottomrule
+\end{longtable}
+
+
+\begin{longtable}{p{0.25\textwidth}p{0.65\textwidth}}
+\toprule
+\textbf{Thực thể} & \textbf{Thuộc tính} \\
+\midrule
+ALERT & \makecell[l]{AlertID \\SensorID \\ClosedBy \\AlertType \\Message \\Severity \\TriggeredValue \\TriggeredAt \\Status \\ClosedAt} \\
+\bottomrule
+\end{longtable}
+
+
+\begin{longtable}{p{0.25\textwidth}p{0.65\textwidth}}
+\toprule
+\textbf{Thực thể} & \textbf{Thuộc tính} \\
+\midrule
+NOTIFICATION & \makecell[l]{NotificationID \\AlertID \\UserID \\NotificationType \\Message \\SentAt \\Status} \\
+\bottomrule
+\end{longtable}
+
+
+\begin{longtable}{p{0.25\textwidth}p{0.65\textwidth}}
+\toprule
+\textbf{Thực thể} & \textbf{Thuộc tính} \\
+\midrule
+ALERTHANDLING & \makecell[l]{HandlingID \\AlertID \\HandledBy \\Action \\Note \\HandledAt} \\
+\bottomrule
+\end{longtable}
+
+
+\begin{longtable}{p{0.25\textwidth}p{0.65\textwidth}}
+\toprule
+\textbf{Thực thể} & \textbf{Thuộc tính} \\
+\midrule
+MISSION NOTE & \makecell[l]{NoteID \\MissionID \\UserID \\NoteContent \\CreatedAt} \\
+\bottomrule
+\end{longtable}
 
 \subsection{ERD}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{images/ERD.png}
+    \caption{ERD}
+\end{figure}
+
 
