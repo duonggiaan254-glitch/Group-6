@@ -1,30 +1,4 @@
-
-\subsection{Các thực thể chính}
-Dựa trên phạm vi của đề tài, cơ sở dữ liệu có thể gồm các thực thể chính:
-\begin{itemize}
-    \item User.
-    \item Role.
-    \item Farm.
-    \item Zone.
-    \item Sensor Node.
-    \item Sensor Type.
-    \item Sensor Measurement.
-    \item UAV.
-    \item Gateway.
-    \item Mission.
-    \item Waypoint.
-    \item Collection.
-    \item Threshold.
-    \item Alert.
-    \item Notification.
-\end{itemize}
-
-\subsection{Mối quan hệ dự kiến}
-Một Role có thể được gán cho nhiều User. Một Farm có nhiều Zone. Một Zone có thể có nhiều Sensor Node. Một Sensor Type có thể được sử dụng bởi nhiều Sensor Node.
-
-Một Mission thuộc về một Farm và có thể bao gồm nhiều Waypoint và nhiều Sensor Node. Một UAV Gateway thực hiện việc thu thập dữ liệu từ các Sensor Node.
-
-Sensor Measurement lưu các giá trị đo được cùng thời gian thu thập và thông tin liên quan đến nguồn dữ liệu. Threshold được dùng để xác định điều kiện tạo Alert.
+\subsection{Lược đồ quan hệ}
 
 \subsection{Nguyên tắc thiết kế}
 Cơ sở dữ liệu cần đảm bảo:
@@ -37,31 +11,9 @@ Cơ sở dữ liệu cần đảm bảo:
     \item Thiết kế đủ linh hoạt để bổ sung farm, zone, sensor, UAV, gateway và loại cảm biến mới.
 \end{itemize}
 
-\subsection{Bảng dữ liệu dự kiến}
-\begin{longtable}{p{0.25\textwidth}p{0.65\textwidth}}
-\toprule
-\textbf{Bảng} & \textbf{Mục đích} \\
-\midrule
-User & Lưu thông tin người dùng hệ thống. \\
-Role & Lưu nhóm quyền của người dùng. \\
-Farm & Lưu thông tin nông trại. \\
-Zone & Lưu các khu vực thuộc farm. \\
-SensorNode & Lưu thông tin các nút cảm biến. \\
-SensorType & Lưu loại dữ liệu cảm biến. \\
-SensorMeasurement & Lưu các lần đo dữ liệu. \\
-UAV & Lưu thông tin UAV. \\
-Gateway & Lưu thông tin gateway. \\
-Mission & Lưu nhiệm vụ thu thập dữ liệu. \\
-Waypoint & Lưu các điểm trên tuyến bay. \\
-Collection & Lưu thông tin lần thu thập. \\
-Threshold & Lưu ngưỡng kiểm tra dữ liệu. \\
-Alert & Lưu cảnh báo phát sinh. \\
-Notification & Lưu thông tin gửi thông báo. \\
-\bottomrule
-\end{longtable}
 
 \subsection{Chuẩn hóa}
-Nhóm cần kiểm tra các bảng theo các dạng chuẩn 1NF, 2NF và 3NF. Việc chuẩn hóa nhằm giảm dư thừa dữ liệu và hạn chế các bất thường khi thêm, sửa hoặc xóa dữ liệu.
+Cần kiểm tra các bảng theo các dạng chuẩn 1NF, 2NF và 3NF. Việc chuẩn hóa nhằm giảm dư thừa dữ liệu và hạn chế các bất thường khi thêm, sửa hoặc xóa dữ liệu.
 
 \subsection{Data Dictionary}
-Sau khi chốt ERD và mô hình quan hệ, nhóm cần bổ sung Data Dictionary cho từng bảng, gồm tên thuộc tính, kiểu dữ liệu, độ dài, khóa, cho phép NULL hay không và mô tả ý nghĩa.
+Sau khi chốt ERD và mô hình quan hệ, cần bổ sung Data Dictionary cho từng bảng, gồm tên thuộc tính, kiểu dữ liệu, độ dài, khóa, cho phép NULL hay không và mô tả ý nghĩa.
