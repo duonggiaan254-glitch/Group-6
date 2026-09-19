@@ -1,0 +1,101 @@
+
+\chapter{Phân tích nghiệp vụ và kiến trúc}
+
+\section{Kiến trúc logic đề xuất}
+Kiến trúc dưới đây chuyển hóa mô tả nguồn thành các lớp có ranh giới rõ ràng. Đây là thiết kế đề xuất phục vụ triển khai, không phải bằng chứng về kiến trúc đã chạy thực tế.
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[
+  box/.style={draw, rounded corners, align=center, minimum width=3.6cm, minimum height=1cm, fill=blue!5},
+  arrow/.style={-Latex, thick}
+]
+\node[box] (sensor) {Sensor Node\\Measurement + local buffer};
+\node[box, right=1.5cm of sensor] (gw) {UAV Mobile Gateway\\Discovery + collection + offline};
+\node[box, right=1.5cm of gw] (api) {Backend API\\Auth + ingestion + mission};
+\node[box, below=1.4cm of api] (db) {Central Database\\Operational + historical data};
+\node[box, below=1.4cm of gw] (web) {Web Platform\\Map + chart + alert + report};
+
+\draw[arrow] (sensor) -- node[above,font=\small]{device data} (gw);
+\draw[arrow] (gw) -- node[above,font=\small]{sync/API} (api);
+\draw[arrow] (api) -- (db);
+\draw[arrow] (api) -- (web);
+\draw[arrow] (web) -- node[above,font=\small]{mission/config} (api);
+\draw[arrow] (gw) -- node[left,font=\small]{telemetry/status} (web);
+\end{tikzpicture}
+\caption{Kiến trúc logic đề xuất}
+\label{fig:architecture}
+\end{figure}
+
+\section{Luồng dữ liệu chính}
+\subsection{Luồng collection}
+\begin{enumerate}
+  \item Mission được tạo và gắn với farm, UAV, gateway và các sensor node.
+  \item UAV bay/di chuyển theo các waypoint đã cấu hình; direct flight control không thuộc phạm vi hệ thống.
+  \item Gateway phát hiện sensor node đã đăng ký.
+  \item Gateway xác thực thiết bị và yêu cầu measurement.
+  \item Sensor node trả về measurement; gateway ghi nhận collection time/location.
+  \item Nếu có kết nối, dữ liệu được gửi lên backend; nếu không, dữ liệu được giữ offline.
+  \item Khi kết nối phục hồi, gateway retry và đồng bộ dữ liệu chưa gửi.
+  \item Backend validate dữ liệu, chống duplicate và ghi vào database.
+  \item Threshold engine kiểm tra giá trị; nếu bất thường, tạo alert và notification.
+\end{enumerate}
+
+\subsection{Luồng cảnh báo}
+\begin{enumerate}
+  \item Một measurement hợp lệ được lưu.
+  \item Hệ thống xác định threshold phù hợp theo sensor type và zone.
+  \item Giá trị được so với MinValue/MaxValue hoặc các điều kiện cấu hình.
+  \item Nếu vượt điều kiện, hệ thống tạo ALERT.
+  \item ALERT có thể tạo NOTIFICATION cho người dùng liên quan.
+  \item Người dùng xử lý alert; hành động được lưu trong ALERT\_HANDLING.
+\end{enumerate}
+
+\subsection{Luồng offline synchronization}
+\begin{enumerate}
+  \item Gateway đặt record ở trạng thái chưa đồng bộ.
+  \item Record được lưu local để tránh mất dữ liệu.
+  \item Gateway kiểm tra connectivity theo chu kỳ.
+  \item Khi online, gateway gửi batch dữ liệu.
+  \item Server validate và deduplicate.
+  \item Record thành công chuyển trạng thái đồng bộ; record lỗi được retry theo chính sách.
+\end{enumerate}
+
+\section{Quy tắc nghiệp vụ đề xuất}
+\begin{enumerate}
+  \item Mỗi USER thuộc một ROLE.
+  \item Mỗi ZONE thuộc một FARM.
+  \item Mỗi SENSOR\_NODE thuộc một ZONE.
+  \item SENSOR\_DATA phải tham chiếu SENSOR\_NODE và SENSOR\_TYPE hợp lệ.
+  \item Một MISSION thuộc một FARM và có thể tham chiếu UAV/gateway.
+  \item MISSION\_SENSOR biểu diễn quan hệ nhiều-nhiều giữa mission và sensor node.
+  \item Mỗi WAYPOINT thuộc một mission và có SequenceNo để xác định thứ tự.
+  \item THRESHOLD được cấu hình theo SENSOR\_TYPE và ZONE.
+  \item ALERT phải tham chiếu sensor node; việc đóng alert có thể do USER thực hiện.
+  \item NOTIFICATION tham chiếu ALERT và USER nhận thông báo.
+  \item MISSION\_COLLECTION lưu vết từng lần collection, bao gồm trạng thái, lỗi và số lần retry.
+\end{enumerate}
+
+\section{Xử lý dữ liệu bất thường}
+Một record có thể được xem là không hợp lệ ở lớp ingestion nếu thiếu khóa định danh, thiếu measurement time, giá trị không thể parse theo kiểu dữ liệu, sensor không tồn tại, hoặc record trùng theo khóa nghiệp vụ đã thống nhất. Các quy tắc duplicate cụ thể cần được nhóm chốt khi triển khai.
+
+\section{Mô hình trạng thái đề xuất}
+\begin{table}[H]
+\centering
+\caption{Một số trạng thái có thể chuẩn hóa}
+\label{tab:states}
+\begin{tabularx}{\textwidth}{lY}
+\toprule
+Đối tượng & Trạng thái minh họa \\
+\midrule
+USER & ACTIVE, INACTIVE, LOCKED\\
+SENSOR\_NODE & ACTIVE, INACTIVE, OFFLINE, MAINTENANCE\\
+UAV & READY, IN\_MISSION, CHARGING, MAINTENANCE\\
+MISSION & DRAFT, PLANNED, RUNNING, COMPLETED, FAILED, CANCELLED\\
+MISSION\_COLLECTION & PENDING, COLLECTED, FAILED, SYNCED\\
+ALERT & OPEN, ACKNOWLEDGED, CLOSED\\
+NOTIFICATION & PENDING, SENT, FAILED\\
+\bottomrule
+\end{tabularx}
+\end{table}
+Các giá trị trên là đề xuất để thống nhất implementation; nếu nhóm đã có enum/status khác, cần thay đồng bộ trong database, API và UI.
