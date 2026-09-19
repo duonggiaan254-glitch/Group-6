@@ -26,3 +26,8 @@ Tạo mission, waypoint, gắn sensor với waypoint và chạy mission theo th�
 3. `cp .env.example .env`
 4. Sửa `DB_PASSWORD` trong `.env`
 5. Chạy `python src/main.py`
+## Contributor
+
+- Implemented Sensor Node prototype with 6 sensor types.
+- Implemented UAV Gateway for sensor data collection and synchronization.
+- Implemented Mission Management for mission and waypoint processing.
