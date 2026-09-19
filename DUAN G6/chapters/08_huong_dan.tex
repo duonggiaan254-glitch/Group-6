@@ -1,0 +1,61 @@
+
+\chapter{Hướng dẫn sử dụng và vận hành}
+
+\section{Farm Administrator}
+\subsection{Đăng nhập}
+\begin{enumerate}
+  \item Mở web application.
+  \item Nhập username/email và password.
+  \item Chọn đăng nhập.
+  \item Nếu credential hợp lệ, hệ thống mở dashboard theo quyền.
+\end{enumerate}
+
+\subsection{Quản lý user}
+Administrator tạo/cập nhật user, gán role và quản lý trạng thái tài khoản. Không chia sẻ password; mọi password phải được lưu dưới dạng hash ở backend.
+
+\subsection{Theo dõi farm và zone}
+Administrator có thể kiểm tra danh sách farm, zone và sensor node. Dashboard nên hiển thị vị trí, status và các chỉ số gần nhất khi dữ liệu có sẵn.
+
+\section{Device/Mission Operator}
+\subsection{Tạo mission}
+\begin{enumerate}
+  \item Chọn farm.
+  \item Chọn sensor node cần thu thập.
+  \item Tạo waypoint theo thứ tự.
+  \item Chọn UAV/gateway phù hợp.
+  \item Kiểm tra thông tin mission.
+  \item Chuyển mission sang trạng thái sẵn sàng/chạy theo quy trình triển khai.
+\end{enumerate}
+
+\subsection{Theo dõi mission}
+Theo dõi battery, waypoint và status khi telemetry khả dụng. Sau mission, kiểm tra collection thành công/thất bại và retry nếu cần.
+
+\section{Xử lý alert}
+Khi dashboard xuất hiện alert:
+\begin{enumerate}
+  \item Mở chi tiết alert.
+  \item Kiểm tra sensor, giá trị trigger, thời gian và severity.
+  \item Kiểm tra notification đã gửi.
+  \item Thực hiện action cần thiết ngoài phạm vi hệ thống nếu có.
+  \item Ghi lại action/note trong alert handling.
+  \item Đóng alert khi đã xử lý.
+\end{enumerate}
+
+\section{Vận hành khi mất Internet}
+Gateway tiếp tục lưu dữ liệu cục bộ. Operator không nên xóa local queue trong thời gian mất kết nối. Khi Internet phục hồi, gateway tự đồng bộ; kiểm tra số lượng pending/synced và các record lỗi.
+
+\section{Xử lý sự cố}
+\begin{longtable}{p{4cm}p{4.5cm}p{4.5cm}}
+\caption{Bảng xử lý sự cố sơ bộ}\label{tab:trouble}\\
+\toprule
+Hiện tượng & Kiểm tra & Hướng xử lý \\
+\midrule
+Không đăng nhập được & Credential/status & Kiểm tra tài khoản, password và trạng thái user.\\
+Sensor không xuất hiện & Zone/registration/status & Kiểm tra SensorID, ZoneID, registration và connectivity.\\
+Dữ liệu chưa lên server & Gateway connectivity/queue & Kiểm tra local queue, retry và server endpoint.\\
+Dữ liệu bị trùng & Idempotency key & Kiểm tra logic duplicate prevention.\\
+Không có alert & Threshold/isActive & Kiểm tra sensor type, zone, threshold và dữ liệu measurement.\\
+Không có notification & Notification status & Kiểm tra user target và dịch vụ gửi.\\
+Mission thiếu waypoint & Mission/waypoint data & Kiểm tra SequenceNo và MissionID.\\
+\bottomrule
+\end{longtable}

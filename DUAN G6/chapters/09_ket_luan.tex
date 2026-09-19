@@ -1,0 +1,43 @@
+
+\chapter{Kết luận và hướng phát triển}
+
+\section{Kết quả thiết kế}
+Báo cáo đã hệ thống hóa bài toán UAV-assisted IoT theo tài liệu nguồn và chuyển hóa thành:
+\begin{itemize}
+  \item mô tả bối cảnh, phạm vi và sản phẩm;
+  \item yêu cầu chức năng/phi chức năng có trong đề bài;
+  \item kiến trúc logic và các luồng collection, synchronization, alert;
+  \item Use Case, Class, Sequence, Activity, Component và Deployment Diagram đề xuất;
+  \item mô hình cơ sở dữ liệu với các nhóm bảng identity, farm, sensor, UAV, mission và alert;
+  \item API baseline và thiết kế offline synchronization;
+  \item kế hoạch triển khai, kiểm thử, bảo mật và vận hành;
+  \item tích hợp các hình ERD/schema do nhóm cung cấp.
+\end{itemize}
+
+\section{Những phần chưa thể khẳng định}
+Tài liệu nguồn chưa cung cấp source code, cấu hình môi trường, giao thức thiết bị chi tiết, kết quả benchmark hoặc test report. Vì vậy báo cáo không khẳng định hệ thống đã đạt 99\% uptime hay các mốc 3/10 giây; đó là mục tiêu NFR cần được kiểm chứng bằng thực nghiệm.
+
+Tương tự, F04--F19 không có trong tài liệu nguồn được cung cấp. Nhóm nên bổ sung nếu có bản yêu cầu đầy đủ trước khi khóa phạm vi và xây dựng test coverage.
+
+\section{Hướng phát triển}
+Sau phiên bản đầu, có thể xem xét:
+\begin{itemize}
+  \item mở rộng firmware/protocol cho nhiều loại sensor;
+  \item tăng khả năng quan sát gateway và telemetry;
+  \item dashboard nâng cao theo từng farm/zone;
+  \item retention/archiving dữ liệu lịch sử;
+  \item tích hợp thêm kênh notification;
+  \item AI/crop image analysis nếu được đưa vào scope mới;
+  \item tích hợp flight-control chỉ khi yêu cầu và kiến trúc an toàn được xác định riêng.
+\end{itemize}
+
+\section{Đề xuất checklist trước khi nộp}
+\begin{enumerate}
+  \item Bổ sung danh sách F04--F19 nếu nhóm có tài liệu gốc đầy đủ.
+  \item Chốt DBMS và chạy DDL trên môi trường test.
+  \item Kiểm tra toàn bộ FK/UNIQUE/CHECK.
+  \item Đồng bộ tên cột giữa ERD, SQL, API và code.
+  \item Bổ sung test evidence: screenshot/log/result.
+  \item Đo NFR thay vì chỉ mô tả.
+  \item Bổ sung tên thành viên, lớp, giảng viên và thông tin trường trên trang bìa nếu cần.
+\end{enumerate}

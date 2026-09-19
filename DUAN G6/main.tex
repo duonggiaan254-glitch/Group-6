@@ -1,0 +1,148 @@
+
+\documentclass[12pt,a4paper,oneside]{report}
+
+\usepackage{fontspec}
+\usepackage{polyglossia}
+\setdefaultlanguage{vietnamese}
+\setotherlanguage{english}
+\setmainfont{DejaVu Serif}
+\setsansfont{DejaVu Sans}
+\setmonofont{DejaVu Sans Mono}
+
+\usepackage[a4paper,top=2.5cm,bottom=2.5cm,left=3cm,right=2cm]{geometry}
+\usepackage{setspace}
+\onehalfspacing
+\usepackage{microtype}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage{amsmath,amssymb}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,shapes.geometric,fit,calc,backgrounds}
+\usepackage{listings}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{lastpage}
+
+\definecolor{linkblue}{RGB}{25,75,130}
+\definecolor{codebg}{RGB}{247,247,247}
+\definecolor{codeframe}{RGB}{190,190,190}
+\definecolor{chapterblue}{RGB}{20,65,110}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=linkblue,
+  citecolor=linkblue,
+  urlcolor=linkblue,
+  pdftitle={GFA26SE110 - UAV-Assisted IoT Platform},
+  pdfauthor={Project Team}
+}
+
+\titleformat{\chapter}[display]
+  {\normalfont\bfseries\color{chapterblue}}
+  {\filleft\Large\chaptername~\thechapter}
+  {1ex}
+  {\Huge\filright}
+\titlespacing*{\chapter}{0pt}{-20pt}{25pt}
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\small GFA26SE110}
+\rhead{\small UAV-Assisted IoT Platform}
+\cfoot{\small Trang \thepage/\pageref{LastPage}}
+\setlength{\headheight}{15pt}
+
+\setlist[itemize]{itemsep=3pt,topsep=4pt}
+\setlist[enumerate]{itemsep=3pt,topsep=4pt}
+
+\lstset{
+  basicstyle=\ttfamily\small,
+  backgroundcolor=\color{codebg},
+  frame=single,
+  rulecolor=\color{codeframe},
+  breaklines=true,
+  columns=fullflexible,
+  showstringspaces=false,
+  keywordstyle=\bfseries,
+  commentstyle=\itshape,
+  tabsize=2
+}
+
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+\newcommand{\figref}[1]{Hình~\ref{#1}}
+\newcommand{\tabref}[1]{Bảng~\ref{#1}}
+\newcommand{\code}[1]{\texttt{#1}}
+
+\begin{document}
+
+\begin{titlepage}
+\centering
+\vspace*{1cm}
+{\Large\bfseries TRƯỜNG ĐẠI HỌC / KHOA KỸ THUẬT PHẦN MỀM\par}
+\vspace{1.0cm}
+{\Large\bfseries MÔN THIẾT KẾ CƠ SỞ DỮ LIỆU\par}
+\vspace{1.5cm}
+\rule{\textwidth}{1pt}\par
+\vspace{0.5cm}
+{\Huge\bfseries UAV-Assisted IoT Platform for Farm Monitoring and Sensor Data Collection\par}
+\vspace{0.5cm}
+{\Large\bfseries Nền tảng IoT có UAV hỗ trợ phục vụ giám sát và thu thập dữ liệu cảm biến nông trại\par}
+\vspace{0.5cm}
+\rule{\textwidth}{1pt}\par
+\vspace{1.5cm}
+
+\begin{tabular}{rl}
+\textbf{Mã dự án:} & GFA26SE110\\
+\textbf{Loại tài liệu:} & Phân tích, thiết kế và đặc tả cơ sở dữ liệu\\
+\textbf{Phương pháp phát triển:} & Agile/Scrum\\
+\textbf{Mô hình hóa:} & UML 2.x và mô hình dữ liệu quan hệ\\
+\end{tabular}
+
+\vfill
+{\large \today\par}
+\end{titlepage}
+
+\pagenumbering{roman}
+\chapter*{Tóm tắt}
+\addcontentsline{toc}{chapter}{Tóm tắt}
+Tài liệu này trình bày bản phân tích và thiết kế cho dự án GFA26SE110, một nền tảng IoT hỗ trợ UAV nhằm thu thập dữ liệu cảm biến phân tán trong nông trại, lưu trữ dữ liệu khi mất kết nối, đồng bộ về hệ thống trung tâm, trực quan hóa dữ liệu và phát hiện các giá trị bất thường để gửi cảnh báo.
+
+Nội dung được xây dựng trực tiếp từ tài liệu mô tả dự án do nhóm cung cấp và các sơ đồ cơ sở dữ liệu đã thiết kế. Báo cáo tổ chức thành các chapter độc lập, bao gồm bối cảnh và phạm vi, yêu cầu, kiến trúc và luồng nghiệp vụ, thiết kế cơ sở dữ liệu, mô hình UML, thiết kế API và giao tiếp thiết bị, kế hoạch triển khai/kiểm thử, hướng dẫn sử dụng và phụ lục DDL tham khảo.
+
+\textbf{Lưu ý:} tài liệu nguồn chỉ cung cấp bốn yêu cầu chức năng được đánh số F01, F02, F03 và F20. Vì vậy báo cáo không tự tạo nội dung cho F04--F19. Các phần được đánh dấu ``thiết kế đề xuất'' là phần triển khai hóa yêu cầu nhằm hoàn thiện hồ sơ thiết kế, không được xem là kết quả triển khai thực tế nếu nhóm chưa thực hiện.
+
+\tableofcontents
+\listoffigures
+\listoftables
+
+\clearpage
+\pagenumbering{arabic}
+
+\input{chapters/01_tong_quan}
+\input{chapters/02_yeu_cau}
+\input{chapters/03_phan_tich}
+\input{chapters/04_thiet_ke_uml}
+\input{chapters/05_thiet_ke_csdls}
+\input{chapters/06_api_va_thiet_bi}
+\input{chapters/07_trien_khai_kiem_thu}
+\input{chapters/08_huong_dan}
+\input{chapters/09_ket_luan}
+
+\appendix
+\input{chapters/A_ddl}
+\input{chapters/B_ma_tran_yeu_cau}
+\input{chapters/C_hinh_anh}
+
+\bibliographystyle{plain}
+\bibliography{references}
+
+\end{document}
