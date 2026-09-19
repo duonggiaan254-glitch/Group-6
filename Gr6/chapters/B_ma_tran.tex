@@ -1,0 +1,26 @@
+\chapter{Ma trận truy vết yêu cầu}
+
+\begin{table}[H]
+\centering
+\caption{Truy vết từ yêu cầu đến thiết kế và kiểm thử}
+\begin{tabularx}{\textwidth}{p{1.7cm}X X p{2.5cm}}
+\toprule
+Req. & Mục tiêu & Thiết kế & Test case\\
+\midrule
+F01 & Login/logout & USER, ROLE, Auth API & TC01\\
+F02 & Quản lý user & USER, ROLE & TC02\\
+F03 & Collect + validate & SENSOR\_NODE, SENSOR\_DATA, ingestion & TC03--TC05\\
+F20 & Offline + sync & Gateway queue, SENSOR\_DATA, MISSION\_COLLECTION & TC06--TC08\\
+NFR-01 & 99\% uptime & Retry, backup, recovery & TC16\\
+NFR-02 & Secure storage/access & Authentication, authorization, hashing & TC01--TC02\\
+NFR-03 & 3s web / 10s sync target & API + DB + dashboard & TC15\\
+NFR-04 & Offline/retry/dedup & Gateway + idempotency & TC06--TC08\\
+NFR-05 & Extensibility & Normalized entity model & TC09--TC14\\
+NFR-06 & Browser support & Responsive web UI & TC14\\
+NFR-07 & Mission monitoring & MISSION, WAYPOINT, UAV, GATEWAY & TC09\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{Khoảng trống}
+F04--F19 không xuất hiện trong tài liệu nguồn được cung cấp. Nếu có tài liệu yêu cầu đầy đủ, cần cập nhật ma trận trước khi khóa phạm vi và test coverage.

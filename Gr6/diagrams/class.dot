@@ -1,0 +1,20 @@
+graph G {
+  graph [layout=neato, overlap=false, splines=true, outputorder=edgesfirst, pad=0.3, margin=0.1, bgcolor="white"];
+  node [shape=record, fontname="Arial", fontsize=12, margin="0.10,0.07", pin=true];
+  edge [fontname="Arial", fontsize=10];
+  Farm [label="{FARM|FarmID PK|FarmName|Status}", pos="0,4.8!"];
+  Zone [label="{ZONE|ZoneID PK|FarmID FK|ZoneName}", pos="2.8,4.8!"];
+  Sensor [label="{SENSOR_NODE|SensorID PK|ZoneID FK|Status}", pos="5.8,4.8!"];
+  Data [label="{SENSOR_DATA|DataID PK|SensorID FK|MeasuredValue|MeasuredAt}", pos="9.0,4.8!"];
+  Mission [label="{MISSION|MissionID PK|FarmID FK|UAVID FK|CreatedBy FK|Status}", pos="2.0,1.9!"];
+  WP [label="{WAYPOINT|WaypointID PK|MissionID FK|SequenceNo}", pos="5.0,1.9!"];
+  Alert [label="{ALERT|AlertID PK|SensorID FK|Severity|Status}", pos="8.0,1.9!"];
+  User [label="{USER|UserID PK|RoleID FK|Username|Status}", pos="11.0,1.9!"];
+  Farm -- Zone [label="1:N"];
+  Zone -- Sensor [label="1:N"];
+  Sensor -- Data [label="1:N"];
+  Farm -- Mission [label="1:N"];
+  Mission -- WP [label="1:N"];
+  Sensor -- Alert [label="1:N"];
+  User -- Mission [label="1:N", style=dashed];
+}

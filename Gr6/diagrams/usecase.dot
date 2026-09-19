@@ -1,0 +1,5 @@
+digraph G { graph [rankdir=LR, splines=polyline, nodesep=0.35, ranksep=0.7]; node [shape=box, style="rounded,filled", fillcolor="white", fontname="Arial", fontsize=11, margin="0.14,0.08"]; edge [fontname="Arial", fontsize=10];
+Admin [label="Farm Administrator", shape=box3d]; Operator [label="Device Operator", shape=box3d]; Engine [label="Sensor Collection Engine", shape=box3d];
+Login [label="Login / Logout"]; Users [label="Manage Users"]; Mission [label="Manage Mission"]; Monitor [label="Monitor Sensor / UAV"]; Collect [label="Collect + Validate Data"]; Offline [label="Offline Sync"]; Alert [label="Threshold / Alert"];
+Admin -> Login; Admin -> Users; Admin -> Monitor; Operator -> Mission; Operator -> Monitor; Engine -> Collect; Engine -> Offline; Engine -> Alert;
+}

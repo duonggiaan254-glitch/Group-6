@@ -1,0 +1,4 @@
+digraph G { graph [rankdir=LR, splines=polyline, nodesep=0.65, ranksep=0.9]; node [shape=box3d, style="filled", fillcolor="white", fontname="Arial", fontsize=11, margin="0.16,0.10"]; edge [fontname="Arial", fontsize=10];
+Client [label="Client PC / Browser\nChrome / Edge / Firefox"]; App [label="Application Server\nWeb + Backend API"]; DB [label="Database Server\nRelational DB"]; GW [label="UAV + Mobile Gateway\nLocal storage"]; Sensor [label="Sensor Nodes\nper zone"]; Mail [label="Email Service\noptional"];
+Client -> App [label="HTTPS"]; App -> DB [label="DB connection"]; GW -> App [label="Internet / sync"]; Sensor -> GW [label="local wireless link"]; App -> Mail [label="notification"];
+}

@@ -1,0 +1,4 @@
+digraph G { graph [rankdir=TB, splines=polyline, nodesep=0.35, ranksep=0.5]; node [shape=box, style="rounded,filled", fillcolor="white", fontname="Arial", fontsize=11, margin="0.15,0.09"]; edge [fontname="Arial", fontsize=10];
+Start [shape=circle,label="",width=0.18]; Rec [label="Receive measurement"]; Val [label="Validate format + device"]; Q1 [shape=diamond,label="Valid?"]; Err [label="Log error / reject record"]; Save [label="Save data"]; Thr [label="Check threshold"]; Q2 [shape=diamond,label="Abnormal?"]; Alert [label="Create Alert / Notification"]; End [shape=doublecircle,label="",width=0.18];
+Start -> Rec -> Val -> Q1; Q1 -> Err [label="No"]; Err -> End; Q1 -> Save [label="Yes"]; Save -> Thr -> Q2; Q2 -> End [label="No"]; Q2 -> Alert [label="Yes"]; Alert -> End;
+}

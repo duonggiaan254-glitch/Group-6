@@ -1,0 +1,11 @@
+digraph G { graph [rankdir=TB, splines=polyline, nodesep=0.55, ranksep=0.7]; node [shape=box, style="rounded,filled", fillcolor="white", fontname="Arial", fontsize=11, margin="0.15,0.09"]; edge [fontname="Arial", fontsize=10];
+S [label="Sensor Node"]; G [label="UAV Gateway"]; A [label="Backend API"]; D [label="Database"]; E [label="Alert Engine"];
+S -> G [label="1. discover / authenticate"];
+S -> G [label="2. measurement"];
+G -> A [label="3. upload / sync"];
+A -> D [label="4. validate + save"];
+D -> A [label="5. stored"];
+A -> E [label="6. check threshold"];
+E -> D [label="7. create alert if needed"];
+A -> G [label="8. sync result"];
+}

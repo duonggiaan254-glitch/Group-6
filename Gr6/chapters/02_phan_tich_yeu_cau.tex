@@ -1,0 +1,86 @@
+\chapter{Phân tích yêu cầu}
+
+\section{Tác nhân và thành phần chính}
+\begin{itemize}
+\item \textbf{Farm Administrator:} quản trị truy cập và người dùng.
+\item \textbf{UAV and Device Operator:} tạo và theo dõi mission, vận hành thiết bị.
+\item \textbf{Sensor Collection Engine:} thu thập, validate, lưu offline và đồng bộ measurement.
+\item \textbf{Sensor Node:} nguồn phát sinh measurement.
+\item \textbf{UAV Mobile Gateway:} cầu nối di động giữa sensor node và hệ thống trung tâm.
+\item \textbf{Central Web Platform:} lưu trữ, trực quan hóa, cảnh báo và báo cáo.
+\end{itemize}
+
+\section{Functional Requirements có trong tài liệu nguồn}
+\begin{table}[H]
+\centering
+\caption{Functional requirements được cung cấp}
+\begin{tabularx}{\textwidth}{p{1.2cm}p{3.2cm}X}
+\toprule
+ID & Vai trò & Nội dung\\
+\midrule
+F01 & Farm Administrator & Đăng nhập và đăng xuất để truy cập hệ thống an toàn.\\
+F02 & Farm Administrator & Quản lý tài khoản người dùng để kiểm soát quyền truy cập.\\
+F03 & Sensor Collection Engine & Thu thập và validate dữ liệu sensor để phát hiện record thiếu, trùng hoặc không hợp lệ.\\
+F20 & Sensor Collection Engine & Lưu dữ liệu offline và tự động đồng bộ với server khi kết nối được khôi phục để tránh mất dữ liệu.\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+Tài liệu nguồn nhảy từ F03 sang F20; vì vậy báo cáo không tự suy diễn nội dung F04--F19.
+
+\section{Yêu cầu nghiệp vụ từ mô tả giải pháp}
+\begin{enumerate}
+\item Sensor node thu thập chỉ số môi trường và lưu tạm measurement.
+\item UAV gateway phát hiện, xác thực và thu thập dữ liệu node.
+\item Gateway ghi nhận thời gian và vị trí collection.
+\item Gateway lưu cục bộ khi Internet không khả dụng và đồng bộ khi có lại kết nối.
+\item Operator tạo mission theo farm, sensor node, flight point và waypoint.
+\item Hệ thống theo dõi mission khi telemetry khả dụng và ghi nhận điểm thành công/thất bại.
+\item Dashboard hiển thị farm/zone map, sensor status và current/historical data.
+\item Threshold được dùng để kiểm tra dữ liệu và tạo alert.
+\item Alert có thể dẫn tới web/email notification.
+\item Hệ thống có báo cáo về sensor, alert và UAV mission.
+\end{enumerate}
+
+\section{Yêu cầu phi chức năng}
+\begin{table}[H]
+\centering
+\caption{Non-functional requirements}
+\begin{tabularx}{\textwidth}{p{3.2cm}X}
+\toprule
+Nhóm & Yêu cầu\\
+\midrule
+Availability & Mục tiêu ít nhất 99\% uptime trong điều kiện vận hành bình thường.\\
+Security & Dữ liệu sensor được lưu an toàn, backup định kỳ và chỉ người dùng đã xác thực mới được truy cập.\\
+Performance & Thao tác web thông thường khoảng 3 giây; dữ liệu mới đồng bộ xuất hiện trên dashboard khoảng 10 giây.\\
+Gateway & Offline storage, automatic retry và duplicate prevention.\\
+Extensibility & Có thể thêm farm, zone, sensor node, UAV, gateway và sensor type mà không thay đổi lớn core architecture.\\
+Browser & Chrome, Edge và Firefox.\\
+Usability & Hiển thị rõ map, chart, device status và alert.\\
+Mission monitoring & Theo dõi battery, waypoint và status khi telemetry có sẵn.\\
+Scope control & Direct UAV flight control nằm ngoài phạm vi ban đầu.\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{Ma trận truy vết sơ bộ}
+\begin{table}[H]
+\centering
+\caption{Truy vết yêu cầu đến thành phần thiết kế}
+\begin{tabularx}{\textwidth}{p{1.5cm}X X}
+\toprule
+Req. & Thành phần đáp ứng & Dữ liệu/thành phần liên quan\\
+\midrule
+F01 & Authentication/session & USER, ROLE\\
+F02 & User administration & USER, ROLE\\
+F03 & Ingestion/validation & SENSOR\_NODE, SENSOR\_TYPE, SENSOR\_DATA, MISSION\_COLLECTION\\
+F20 & Offline queue + synchronization & SENSOR\_DATA, MISSION\_COLLECTION, SyncStatus, CollectedAt\\
+NFR Security & Authentication + authorization & USER, ROLE, PasswordHash\\
+NFR Extensibility & Mô hình entity chuẩn hóa & FARM, ZONE, SENSOR\_NODE, SENSOR\_TYPE, UAV, MOBILE\_GATEWAY\\
+NFR Mission & Mission monitoring & MISSION, WAYPOINT, MOBILE\_GATEWAY, UAV\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{Các điểm cần chốt trước implementation}
+Danh sách F04--F19, quyền chi tiết của từng role, DBMS chính thức, giao thức sensor--gateway, payload, authentication giữa thiết bị, email provider, backup và retention dữ liệu chưa được tài liệu nguồn xác định chi tiết. Các mục này cần được thống nhất trước khi khóa implementation.

@@ -1,0 +1,4 @@
+digraph G { graph [rankdir=LR, splines=polyline, nodesep=0.55, ranksep=0.8]; node [shape=box, style="rounded,filled", fillcolor="white", fontname="Arial", fontsize=11, margin="0.16,0.10"]; edge [fontname="Arial", fontsize=10];
+Web [label="Web Application"]; API [label="Backend API"]; Sync [label="Ingestion / Sync Service"]; DB [label="Relational Database"]; GW [label="UAV Mobile Gateway"]; Alert [label="Alert / Notification Service"]; Sensor [label="Sensor Nodes"];
+Web -> API [label="HTTPS"]; GW -> Sync [label="sync"]; Sensor -> GW [label="measurement"]; API -> Sync [label="ingestion"]; Sync -> DB [label="SQL"]; API -> DB [label="SQL"]; Sync -> Alert [label="alert event"]; Alert -> Web [label="notification status"];
+}

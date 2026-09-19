@@ -1,0 +1,13 @@
+\chapter{Thiết kế UML}
+Các sơ đồ dưới đây là mô hình thiết kế đề xuất, dùng để thống nhất phạm vi và luồng xử lý trước implementation.
+\section{Use Case Diagram}
+Use Case trả lời câu hỏi: ai sử dụng hệ thống và họ thực hiện chức năng gì?
+\begin{figure}[H]\centering\includegraphics[width=0.95\textwidth,height=0.62\textheight,keepaspectratio]{diagrams/usecase.pdf}\caption{Use Case Diagram tổng quát}\end{figure}
+\section{Class Diagram}
+Class Diagram mô tả các entity miền nghiệp vụ chính và quan hệ của chúng.
+\begin{figure}[H]\centering\includegraphics[width=0.95\textwidth,height=0.65\textheight,keepaspectratio]{diagrams/class.png}\caption{Class Diagram mức miền nghiệp vụ}\end{figure}
+\section{Activity Diagram}
+Activity Diagram mô tả quy trình xử lý một measurement.
+\begin{figure}[H]\centering\includegraphics[width=0.78\textwidth,height=0.78\textheight,keepaspectratio]{diagrams/activity.pdf}\caption{Activity Diagram xử lý measurement}\end{figure}
+\section{Nhận xét về tính phù hợp}
+Sáu sơ đồ được dùng bổ trợ cho nhau: Use Case xác định chức năng theo actor; Class liên kết entity nghiệp vụ; Sequence thể hiện tương tác theo thời gian; Activity thể hiện logic xử lý; Component thể hiện module; Deployment thể hiện nơi triển khai. Direct flight control vẫn được giữ ngoài phạm vi.

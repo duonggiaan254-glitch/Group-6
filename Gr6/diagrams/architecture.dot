@@ -1,0 +1,13 @@
+digraph G { graph [rankdir=LR, splines=polyline, nodesep=0.5, ranksep=0.8, pad=0.2]; node [shape=box, style="rounded,filled", fillcolor="white", fontname="Arial", fontsize=12, margin="0.16,0.10"]; edge [fontname="Arial", fontsize=10];
+Sensor [label="Sensor Nodes\nmeasurement + local buffer"];
+Gateway [label="UAV Mobile Gateway\ndiscovery + collection + offline"];
+API [label="Backend API\nauth + ingestion + mission"];
+DB [label="Central Database\noperational + historical data"];
+Web [label="Web Platform\nmap + chart + alert + report"];
+Sensor -> Gateway [label="sensor data"];
+Gateway -> API [label="sync / API"];
+API -> DB [label="read / write"];
+Web -> API [label="HTTPS"];
+API -> Web [label="data / status"];
+Gateway -> Web [style=dashed,label="telemetry/status"];
+}

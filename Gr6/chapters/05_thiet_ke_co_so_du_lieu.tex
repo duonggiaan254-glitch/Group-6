@@ -1,0 +1,112 @@
+\chapter{Thiết kế cơ sở dữ liệu}
+
+\section{Mô hình dữ liệu tổng quan}
+Mô hình dữ liệu được tổ chức thành các nhóm Identity, Farm, Sensor, UAV, Mission và Alert.
+\begin{table}[H]
+\centering
+\caption{Phân nhóm bảng}
+\begin{tabularx}{\textwidth}{p{3cm}X}
+\toprule
+Nhóm & Bảng\\
+\midrule
+Identity & ROLE, USER\\
+Farm & FARM, ZONE\\
+Sensor & SENSOR\_TYPE, SENSOR\_NODE, SENSOR\_DATA, THRESHOLD\\
+UAV & UAV, MOBILE\_GATEWAY\\
+Mission & MISSION, MISSION\_SENSOR, WAYPOINT, MISSION\_COLLECTION, MISSION\_NOTE\\
+Alert & ALERT, NOTIFICATION, ALERT\_HANDLING\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{ERD tổng quan}
+\begin{figure}[H]\centering\includegraphics[width=0.98\textwidth,height=0.68\textheight,keepaspectratio]{figures/erd2.png}\caption{Mô hình ERD tổng quan}\end{figure}
+
+\section{Danh mục bảng}
+\begin{longtable}{p{4cm}p{10cm}}
+\caption{Danh mục bảng và mục đích}\label{tab:tables}\\
+\toprule
+Bảng & Mục đích\\
+\midrule
+\endfirsthead
+\toprule
+Bảng & Mục đích\\
+\midrule
+\endhead
+ROLE & Danh mục vai trò người dùng.\\
+USER & Tài khoản, thông tin đăng nhập và trạng thái người dùng.\\
+FARM & Thông tin nông trại.\\
+ZONE & Khu vực thuộc farm.\\
+SENSOR\_NODE & Thiết bị cảm biến được đăng ký tại zone.\\
+SENSOR\_TYPE & Loại chỉ số cảm biến và đơn vị đo.\\
+SENSOR\_DATA & Measurement theo sensor node và sensor type.\\
+THRESHOLD & Ngưỡng kiểm tra theo sensor type/zone.\\
+UAV & Thiết bị bay được quản lý trong hệ thống.\\
+MOBILE\_GATEWAY & Gateway gắn với UAV, phục vụ collection/sync.\\
+MISSION & Nhiệm vụ thu thập dữ liệu.\\
+MISSION\_SENSOR & Bảng liên kết mission--sensor.\\
+WAYPOINT & Các điểm tuyến của mission.\\
+MISSION\_COLLECTION & Nhật ký từng lần thu thập, retry và lỗi.\\
+MISSION\_NOTE & Ghi chú của người dùng cho mission.\\
+ALERT & Cảnh báo phát sinh từ sensor data.\\
+NOTIFICATION & Thông báo gửi cho user.\\
+ALERT\_HANDLING & Nhật ký xử lý alert.\\
+\bottomrule
+\end{longtable}
+
+\section{Quan hệ chính}
+\begin{table}[H]
+\centering
+\caption{Các quan hệ chính}
+\begin{tabularx}{\textwidth}{p{5cm}p{3cm}X}
+\toprule
+Cha & Cardinality & Con\\
+\midrule
+ROLE & 1:N & USER\\
+FARM & 1:N & ZONE\\
+ZONE & 1:N & SENSOR\_NODE\\
+SENSOR\_NODE & 1:N & SENSOR\_DATA\\
+SENSOR\_TYPE & 1:N & SENSOR\_DATA\\
+SENSOR\_TYPE & 1:N & THRESHOLD\\
+ZONE & 1:N & THRESHOLD\\
+FARM & 1:N & UAV\\
+UAV & 1:N & MOBILE\_GATEWAY\\
+FARM & 1:N & MISSION\\
+UAV & 1:N & MISSION\\
+MOBILE\_GATEWAY & 1:N & MISSION\\
+USER & 1:N & MISSION\\
+MISSION & 1:N & WAYPOINT\\
+MISSION & N:M & SENSOR\_NODE qua MISSION\_SENSOR\\
+MISSION & 1:N & MISSION\_COLLECTION\\
+SENSOR\_NODE & 1:N & MISSION\_COLLECTION\\
+SENSOR\_NODE & 1:N & ALERT\\
+ALERT & 1:N & NOTIFICATION\\
+USER & 1:N & NOTIFICATION\\
+ALERT & 1:N & ALERT\_HANDLING\\
+USER & 1:N & ALERT\_HANDLING\\
+MISSION & 1:N & MISSION\_NOTE\\
+USER & 1:N & MISSION\_NOTE\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{Khóa chính, khóa ngoại và chuẩn hóa}
+Mỗi entity chính có khóa chính định danh. Quan hệ 1:N dùng foreign key ở phía N. Quan hệ N:M giữa MISSION và SENSOR\_NODE dùng MISSION\_SENSOR với khóa ghép (MissionID, SensorID). Việc tách FARM, ZONE, SENSOR\_NODE, SENSOR\_TYPE và SENSOR\_DATA giúp giảm lặp dữ liệu. THRESHOLD được tách khỏi lịch sử measurement để thay đổi cấu hình mà không phải sửa dữ liệu lịch sử.
+
+Các constraint nên gồm PRIMARY KEY, FOREIGN KEY, UNIQUE cho mã nghiệp vụ khi phù hợp, NOT NULL cho cột bắt buộc và CHECK cho các miền giá trị như battery level và MinValue $\le$ MaxValue.
+
+\section{Index đề xuất}
+\begin{itemize}
+\item SENSOR\_DATA(SensorID, MeasuredAt).
+\item SENSOR\_DATA(SensorTypeID, MeasuredAt).
+\item MISSION\_COLLECTION(MissionID, Status).
+\item ALERT(SensorID, Status, TriggeredAt).
+\item NOTIFICATION(UserID, Status, SentAt).
+\item WAYPOINT(MissionID, SequenceNo).
+\end{itemize}
+
+\section{Schema chi tiết}
+\begin{figure}[H]\centering\includegraphics[width=0.92\textwidth,height=0.62\textheight,keepaspectratio]{figures/schema_user_farm_zone.png}\caption{Schema nhóm User, Farm và Zone}\end{figure}
+\begin{figure}[H]\centering\includegraphics[width=0.92\textwidth,height=0.62\textheight,keepaspectratio]{figures/schema_sensor_threshold.png}\caption{Schema nhóm Sensor và Threshold}\end{figure}
+\begin{figure}[H]\centering\includegraphics[width=0.92\textwidth,height=0.62\textheight,keepaspectratio]{figures/schema_uav_mission.png}\caption{Schema nhóm UAV, Gateway và Mission}\end{figure}
+\begin{figure}[H]\centering\includegraphics[width=0.92\textwidth,height=0.62\textheight,keepaspectratio]{figures/schema_collection_alert.png}\caption{Schema nhóm Collection và Alert}\end{figure}
