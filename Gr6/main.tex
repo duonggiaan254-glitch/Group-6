@@ -39,7 +39,16 @@
 \fancyhead[R]{UAV-Assisted IoT Platform}
 \fancyfoot[C]{Trang \thepage}
 \setlength{\headheight}{15pt}
-
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[R]{UAV-Assisted IoT Platform}
+\fancyfoot[C]{Trang \thepage}
+\setlength{\headheight}{15pt}
+\fancypagestyle{plain}{
+  \fancyhf{}
+  \fancyhead[R]{UAV-Assisted IoT Platform} % Xóa dòng này nếu không muốn hiện header ở trang đầu Chương
+  \fancyfoot[C]{Trang \thepage}
+}
 \lstset{
   basicstyle=\ttfamily\small,
   breaklines=true,
@@ -52,16 +61,25 @@
 
 \newcommand{\ProjectTitle}{UAV-Assisted IoT Platform for Farm Monitoring and Sensor Data Collection}
 \newcommand{\ProjectCode}{Group 6}
+\newcommand{\namemot}{Hà An Huy}
 
 \begin{document}
 
 \begin{titlepage}
+{\Large\bfseries\par TRƯỜNG ĐẠI HỌC GIAO THÔNG VẬN TẢI \par}
 \centering
-\vspace*{1.5cm}
+\vspace*{0.5cm}
 {\Huge\bfseries \ProjectTitle\par}
 \vspace{0.8cm}
-{\Large \textbf{\ProjectCode}\par}
+{\Large \textbf {\ProjectCode}\par}
 \vspace{1.2cm}
+\Large\textbf{Thành viên thực hiện}\\[0.5em]
+Hà Huỳnh Gia Huy\\
+Vân Thị Anh Tú\\
+Nguyễn Thị Vân Anh\\
+Cao Thanh Tuyền\\
+Dương Gia Ân\\
+\Large\textbf{Giảng viên: Thạc sĩ Nguyễn Văn Chiến}\\[0.5em]
 {\Large Báo cáo phân tích, thiết kế và triển khai đề xuất\par}
 \vfill
 \begin{tabular}{rl}
@@ -72,6 +90,7 @@
 \pagenumbering{roman}
 \chapter*{Lời mở đầu}
 Báo cáo này hệ thống hóa bài toán, yêu cầu, kiến trúc, mô hình UML, thiết kế cơ sở dữ liệu, API, cơ chế đồng bộ offline, kiểm thử và vận hành cho nền tảng IoT có UAV hỗ trợ thu thập dữ liệu cảm biến nông trại. Các nội dung được phân biệt rõ giữa yêu cầu có trong tài liệu nguồn và các thiết kế đề xuất phục vụ triển khai.
+\renewcommand{\contentsname}{Mục lục}
 \tableofcontents
 \clearpage
 \pagenumbering{arabic}

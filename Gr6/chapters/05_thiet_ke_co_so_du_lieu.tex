@@ -33,24 +33,26 @@ Bảng & Mục đích\\
 Bảng & Mục đích\\
 \midrule
 \endhead
-ROLE & Danh mục vai trò người dùng.\\
-USER & Tài khoản, thông tin đăng nhập và trạng thái người dùng.\\
-FARM & Thông tin nông trại.\\
-ZONE & Khu vực thuộc farm.\\
-SENSOR\_NODE & Thiết bị cảm biến được đăng ký tại zone.\\
-SENSOR\_TYPE & Loại chỉ số cảm biến và đơn vị đo.\\
-SENSOR\_DATA & Measurement theo sensor node và sensor type.\\
-THRESHOLD & Ngưỡng kiểm tra theo sensor type/zone.\\
-UAV & Thiết bị bay được quản lý trong hệ thống.\\
-MOBILE\_GATEWAY & Gateway gắn với UAV, phục vụ collection/sync.\\
-MISSION & Nhiệm vụ thu thập dữ liệu.\\
-MISSION\_SENSOR & Bảng liên kết mission--sensor.\\
-WAYPOINT & Các điểm tuyến của mission.\\
-MISSION\_COLLECTION & Nhật ký từng lần thu thập, retry và lỗi.\\
-MISSION\_NOTE & Ghi chú của người dùng cho mission.\\
-ALERT & Cảnh báo phát sinh từ sensor data.\\
-NOTIFICATION & Thông báo gửi cho user.\\
-ALERT\_HANDLING & Nhật ký xử lý alert.\\
+1.USER & Tài khoản, thông tin đăng nhập của người dùng.\\
+2.ROLE & Vai trò của người dùng.\\
+3.FARM & Thông tin nông trại.\\
+4.ZONE & Khu vực thuộc Farm.\\
+5.SENSOR\_NODE & Thiết bị cảm biến được đăng ký tại zone.\\
+6.SENSOR\_TYPE & Loại chỉ số cảm biến và đơn vị đo.\\
+7.SENSOR\_\\MEASUREMENT & là kết quả mà thiết bị đó đo được tại một thời điểm cụ thể theo Sensor Node.\\
+8.UAV & Thiết bị bay được quản lý trong hệ thống.\\
+9.UAV\_GATEWAY & Gateway gắn với UAV, phục vụ collection/sync.\\
+10.TELEMETRY\_DATA & Lưu các thông tin trạng thái và hoạt động của UAV trong quá trình thực hiện một mission\\
+11.COLLECTION\_\\MISSION& Nhật ký từng lần thu thập, retry và lỗi.\\
+12.MISSION\_\\SENSOR & Bảng liên kết mission--sensor.\\
+13.WAY\_POINT & Các điểm tuyến của mission.\\
+14.OFFLINE\_DATA\_\\RECORD & lưu tạm dữ liệu mà UAV Gateway đã thu thập được khi chưa thể kết nối với Server.\\
+15.SYNCLOG & ghi nhận và theo dõi quá trình đồng bộ dữ liệu từ UAV Gateway lên hệ thống trung tâm.\\
+16.THRESHOLD & điều kiện để phát hiện bất thường.\\
+17.ALERT & Cảnh báo phát sinh từ sensor data.\\
+18.NOTIFICATION & Thông báo gửi cho user.\\
+19.REPORT & Báo cáo.\\
+20.DEVICE\_\\CREDENTIAL & Bảo mật thiết bị.\\
 \bottomrule
 \end{longtable}
 
@@ -62,30 +64,32 @@ ALERT\_HANDLING & Nhật ký xử lý alert.\\
 \toprule
 Cha & Cardinality & Con\\
 \midrule
-ROLE & 1:N & USER\\
-FARM & 1:N & ZONE\\
-ZONE & 1:N & SENSOR\_NODE\\
-SENSOR\_NODE & 1:N & SENSOR\_DATA\\
-SENSOR\_TYPE & 1:N & SENSOR\_DATA\\
-SENSOR\_TYPE & 1:N & THRESHOLD\\
-ZONE & 1:N & THRESHOLD\\
-FARM & 1:N & UAV\\
-UAV & 1:N & MOBILE\_GATEWAY\\
-FARM & 1:N & MISSION\\
-UAV & 1:N & MISSION\\
-MOBILE\_GATEWAY & 1:N & MISSION\\
-USER & 1:N & MISSION\\
-MISSION & 1:N & WAYPOINT\\
-MISSION & N:M & SENSOR\_NODE qua MISSION\_SENSOR\\
-MISSION & 1:N & MISSION\_COLLECTION\\
-SENSOR\_NODE & 1:N & MISSION\_COLLECTION\\
-SENSOR\_NODE & 1:N & ALERT\\
-ALERT & 1:N & NOTIFICATION\\
-USER & 1:N & NOTIFICATION\\
-ALERT & 1:N & ALERT\_HANDLING\\
-USER & 1:N & ALERT\_HANDLING\\
-MISSION & 1:N & MISSION\_NOTE\\
-USER & 1:N & MISSION\_NOTE\\
+1.ROLE & 1:N & USER\\
+2.FARM & 1:N & ZONE\\
+3.ZONE & 1:N & SENSOR\_NODE\\
+4.SENSOR\_NODE & 1:N & SENSOR\_MEASUREMENT\\
+5.SENSOR\_TYPE & 1:N & SENSOR\_MEASUREMENT\\
+6.FARM & 1:N & COLLECTION\_MISSION\\
+7.UAV & 1:N & COLLECTION\_MISSION\\
+8.UAV\_GATEWAY & 1:N & COLLECTION\_MISSION\\
+9.USER & 1:N & COLLECTION\_MISSION\\
+10.COLLECTION\_\\MISSION & N:N & SENSOR\_NODE\\
+11.COLLECTION\_\\MISSION & 1:N & WAY\_POINT\\
+12.UAV & 1:N & TELEMETRY\_DATA\\
+13.COLLECTION\_\\MISSION & 1:N & TELEMETRY\_DATA\\
+14.SENSOR\_TYPE & 1:N & THRESHOLD\\
+15.ZONE & 1:N & THRESHOLD\\
+16.SENSOR\_NODE & 1:N & ALERT\\
+17.SENSOR\_\\MEASUREMENT & 1:N & ALERT\\
+18.THRESHOLD & 1:N & ALERT\\
+19.ALERT & 1:N & NOTIFICATION\\
+20.USER & 1:N & NOTIFICATION\\
+21.UAV\_GATEWAY & 1:N & OFFLINE\_DATA\_RECORD\\
+22.SENSOR\_NOTE & 1:N & OFFLINE\_DATA\_RECORD\\
+23.UAV\_GATEWAY & 1:N & SYNCLOG\\
+24.USER & 1:N & REPORT\\
+25.COLLECTION\_\\MISSION & 1:N & MISSION\_SENSOR\\
+26.SENSOR\_NODE & 1:N & MISSION\_SENSOR\\
 \bottomrule
 \end{tabularx}
 \end{table}

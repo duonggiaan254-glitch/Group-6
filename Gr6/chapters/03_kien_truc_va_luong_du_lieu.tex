@@ -27,40 +27,5 @@ Measurement hợp lệ được lưu trước, sau đó hệ thống xác địn
 
 \section{Luồng offline synchronization}
 Gateway đặt record ở trạng thái chưa đồng bộ, lưu local để tránh mất dữ liệu, kiểm tra connectivity theo chu kỳ và gửi batch khi online. Server validate và deduplicate. Record thành công được đánh dấu đồng bộ; record lỗi tạm thời được retry theo policy.
-
-\section{Quy tắc nghiệp vụ đề xuất}
-\begin{enumerate}
-\item Mỗi USER thuộc một ROLE.
-\item Mỗi ZONE thuộc một FARM.
-\item Mỗi SENSOR\_NODE thuộc một ZONE.
-\item SENSOR\_DATA phải tham chiếu SENSOR\_NODE và SENSOR\_TYPE hợp lệ.
-\item MISSION thuộc một FARM và có thể tham chiếu UAV/gateway.
-\item MISSION\_SENSOR biểu diễn quan hệ nhiều-nhiều giữa mission và sensor node.
-\item Mỗi WAYPOINT thuộc một mission và có SequenceNo.
-\item THRESHOLD được cấu hình theo SENSOR\_TYPE và ZONE.
-\item ALERT tham chiếu sensor node; việc đóng alert có thể do USER thực hiện.
-\item NOTIFICATION tham chiếu ALERT và USER nhận thông báo.
-\item MISSION\_COLLECTION lưu trạng thái, lỗi và số lần retry của từng lần collection.
-\end{enumerate}
-
 \section{Xử lý dữ liệu bất thường}
 Một record có thể bị từ chối nếu thiếu khóa định danh, thiếu measurement time, giá trị không thể parse, sensor không tồn tại hoặc trùng theo khóa nghiệp vụ. Quy tắc duplicate cụ thể cần thống nhất với firmware/gateway.
-
-\section{Trạng thái đề xuất}
-\begin{table}[H]
-\centering
-\caption{Một số trạng thái minh họa}
-\begin{tabularx}{\textwidth}{p{4cm}X}
-\toprule
-Đối tượng & Trạng thái\\
-\midrule
-USER & ACTIVE, INACTIVE, LOCKED\\
-SENSOR\_NODE & ACTIVE, INACTIVE, OFFLINE, MAINTENANCE\\
-UAV & READY, IN\_MISSION, CHARGING, MAINTENANCE\\
-MISSION & DRAFT, PLANNED, RUNNING, COMPLETED, FAILED, CANCELLED\\
-MISSION\_COLLECTION & PENDING, COLLECTED, FAILED, SYNCED\\
-ALERT & OPEN, ACKNOWLEDGED, CLOSED\\
-NOTIFICATION & PENDING, SENT, FAILED\\
-\bottomrule
-\end{tabularx}
-\end{table}
