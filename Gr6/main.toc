@@ -22,3 +22,4 @@
 \contentsline {section}{\numberline {5.3}Danh mục bảng}{22}{section.5.3}%
 \contentsline {section}{\numberline {5.4}Quan hệ chính}{24}{section.5.4}%
 \contentsline {section}{\numberline {5.5}Chuẩn hóa}{25}{section.5.5}%
+\contentsline {section}{\numberline {5.6}Thiết kế mức vật lí}{28}{section.5.6}%
