@@ -1,19 +1,36 @@
 \chapter{Mô tả hệ thống}
 
-\section{Tác nhân và thành phần chính}
-\begin{itemize}
-\item \textbf{Farm Administrator:} quản trị truy cập và người dùng.
-\item \textbf{UAV and Device Operator:} tạo và theo dõi mission, vận hành thiết bị.
-\item \textbf{Sensor Collection Engine:} thu thập, validate, lưu offline và đồng bộ measurement.
-\item \textbf{Sensor Node:} nguồn phát sinh measurement.
-\item \textbf{UAV Mobile Gateway:} cầu nối di động giữa sensor node và hệ thống trung tâm.
-\item \textbf{Central Web Platform:} lưu trữ, trực quan hóa, cảnh báo và báo cáo.
-\end{itemize}
-
-\section{Functional Requirements có trong tài liệu nguồn}
+\section{Đối tượng và thuộc tính}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.95\textwidth,height=1\textheight,keepaspectratio]{diagrams/T123.png}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.95\textwidth,height=1\textheight,keepaspectratio]{diagrams/T456.png}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.95\textwidth,height=1\textheight,keepaspectratio]{diagrams/T78.png}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.95\textwidth,height=1\textheight,keepaspectratio]{diagrams/T91011.png}
+\end{figure}\begin{figure}[H]
+\centering
+\includegraphics[width=0.95\textwidth,height=1\textheight,keepaspectratio]{diagrams/T121314.png}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.95\textwidth,height=1\textheight,keepaspectratio]{diagrams/T151617.png}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.95\textwidth,height=1\textheight,keepaspectratio]{diagrams/T181920.png}
+\end{figure}
+\section{Functional Requirements}
 \begin{table}[H]
 \centering
-\caption{Functional requirements được cung cấp}
 \begin{tabularx}{\textwidth}{p{1.2cm}p{3.2cm}X}
 \toprule
 ID & Vai trò & Nội dung\\
@@ -25,9 +42,6 @@ F20 & Sensor Collection Engine & Lưu dữ liệu offline và tự động đồ
 \bottomrule
 \end{tabularx}
 \end{table}
-
-Tài liệu nguồn nhảy từ F03 sang F20; vì vậy báo cáo không tự suy diễn nội dung F04--F19.
-
 \section{Yêu cầu nghiệp vụ từ mô tả giải pháp}
 \begin{enumerate}
 \item Sensor node thu thập chỉ số môi trường và lưu tạm measurement.
@@ -59,25 +73,6 @@ Browser & Chrome, Edge và Firefox.\\
 Usability & Hiển thị rõ map, chart, device status và alert.\\
 Mission monitoring & Theo dõi battery, waypoint và status khi telemetry có sẵn.\\
 Scope control & Direct UAV flight control nằm ngoài phạm vi ban đầu.\\
-\bottomrule
-\end{tabularx}
-\end{table}
-
-\section{Ma trận truy vết sơ bộ}
-\begin{table}[H]
-\centering
-\caption{Truy vết yêu cầu đến thành phần thiết kế}
-\begin{tabularx}{\textwidth}{p{1.5cm}X X}
-\toprule
-Req. & Thành phần đáp ứng & Dữ liệu/thành phần liên quan\\
-\midrule
-F01 & Authentication/session & USER, ROLE\\
-F02 & User administration & USER, ROLE\\
-F03 & Ingestion/validation & SENSOR\_NODE, SENSOR\_TYPE, SENSOR\_DATA, MISSION\_COLLECTION\\
-F20 & Offline queue + synchronization & SENSOR\_DATA, MISSION\_COLLECTION, SyncStatus, CollectedAt\\
-NFR Security & Authentication + authorization & USER, ROLE, PasswordHash\\
-NFR Extensibility & Mô hình entity chuẩn hóa & FARM, ZONE, SENSOR\_NODE, SENSOR\_TYPE, UAV, MOBILE\_GATEWAY\\
-NFR Mission & Mission monitoring & MISSION, WAYPOINT, MOBILE\_GATEWAY, UAV\\
 \bottomrule
 \end{tabularx}
 \end{table}

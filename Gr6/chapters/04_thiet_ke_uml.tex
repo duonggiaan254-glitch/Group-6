@@ -1,10 +1,46 @@
 \chapter{Thiết kế UML}
-Các sơ đồ dưới đây là mô hình thiết kế đề xuất, dùng để thống nhất phạm vi và luồng xử lý trước implementation.
-\section{Sơ đồ Usecase}
-Use Case trả lời câu hỏi: ai sử dụng hệ thống và họ thực hiện chức năng gì?
-\begin{figure}[H]\centering\includegraphics[width=0.95\textwidth,height=0.62\textheight,keepaspectratio]{diagrams/usecase.pdf}\caption{Use Case Diagram tổng quát}\end{figure}
-\section{Class}
-Class Diagram mô tả các entity miền nghiệp vụ chính và quan hệ của chúng.
-\begin{figure}[H]\centering\includegraphics[width=0.95\textwidth,height=0.65\textheight,keepaspectratio]{diagrams/class.png}\caption{Class Diagram mức miền nghiệp vụ}\end{figure}
+\section{Sơ đồ Usecase}\begin{figure}[H]
+\centering
+\includegraphics[width=0.95\textwidth,height=1\textheight,keepaspectratio]{diagrams/M1.png}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.95\textwidth,height=1\textheight,keepaspectratio]{diagrams/M2.png}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.95\textwidth,height=1\textheight,keepaspectratio]{diagrams/M21.png}
+\end{figure}
+\begin{figure}[H]\centering\includegraphics[width=0.95\textwidth,height=0.62\textheight,keepaspectratio]{diagrams/UC.png}\caption{Use Case Diagram tổng quát}\end{figure}
+\section{Sơ đồ Class}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.95\textwidth,height=1\textheight,keepaspectratio]{diagrams/CD.png}
+\caption{Sơ đồ Class}
+\end{figure}
 \section{Sơ đồ Activity}
-Activity Diagram mô tả quy trình xử lý một measurement.
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.95\textwidth,height=1\textheight,keepaspectratio]{diagrams/LI.png}
+\caption{Sơ đồ Activity đăng nhập}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.95\textwidth,height=1\textheight,keepaspectratio]{diagrams/TT.png}
+\caption{Sơ đồ Activity thu thập dữ liệu cảm biến}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.95\textwidth,height=1\textheight,keepaspectratio]{diagrams/OL.png}
+\caption{Sơ đồ Activity lưu offline và đồng bộ dữ liệu}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.95\textwidth,height=1\textheight,keepaspectratio]{diagrams/CM.png}
+\caption{Sơ đồ Activity quản lí Collection Mission}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.95\textwidth,height=1\textheight,keepaspectratio]{diagrams/GS.png}
+\caption{Sơ đồ Activity giám sát và xử lí cảnh báo}
+\end{figure}
